@@ -1,8 +1,7 @@
 import streamlit as st
 import math
 import pandas as pd
-import matplotlib.pyplot as plt  # type: ignore
-
+# import matplotlib.pyplot as plt
 
 intputData = {
     'PileD':None,
@@ -21,7 +20,6 @@ intputData['Fc']= st.sidebar.number_input("混凝土強度(kgf/cm2)",value=245)
 intputData['kh'] = st.sidebar.number_input('水平地盤反力係數(kgf/cm3)',value=0.5,format="%0.3f")
 intputData['ForceP'] = st.sidebar.number_input('樁頂垂直力(tf)')
 intputData['ForceH'] = st.sidebar.number_input('樁頂水平力(tf)',value=30.00)
-
 
 st.markdown('## 基樁側向分析')
 st.divider()
@@ -56,44 +54,43 @@ st.write("βL =" ,round(beta*intputData["PileL"],3) ,"m")
 PILEDIVIDE = 50 # cm
 num =  int(intputData['PileL']/PILEDIVIDE)+1
 
-def plotPile(coordzList,displacementList,shearList,momentList):
-    plt.style.use('_mpl-gallery')
-    plt.rcParams['font.sans-serif'] = ['Microsoft JhengHei'] 
-    plt.rcParams['axes.unicode_minus'] = False
-    plt.figure(figsize=(20,10))
-    plt.yticks(fontsize=12)
-    plt.xticks(fontsize=12)
+# def plotPile(coordzList,displacementList,shearList,momentList):
+#     plt.style.use('_mpl-gallery')
+#     plt.rcParams['font.sans-serif'] = ['Microsoft JhengHei'] 
+#     plt.rcParams['axes.unicode_minus'] = False
+#     plt.figure(figsize=(20,10))
+#     plt.yticks(fontsize=12)
+#     plt.xticks(fontsize=12)
 
-    #plot 1:
-    plt.subplot(1, 3, 1)
-    plt.title("displacement (cm)")
-    plt.ylabel("depth (m)",fontsize=12)
-    lines= plt.plot(displacementList,coordzList)
-    plt.setp(lines,c='red',linestyle='--') 
+#     #plot 1:
+#     plt.subplot(1, 3, 1)
+#     plt.title("displacement (cm)")
+#     plt.ylabel("depth (m)",fontsize=12)
+#     lines= plt.plot(displacementList,coordzList)
+#     plt.setp(lines,c='red',linestyle='--') 
 
-    #plot 2:
-    plt.subplot(1, 3, 2)
-    plt.title("shear (tf)")
-    plt.ylabel("depth (m)",fontsize=12)
-    lines= plt.plot(shearList,coordzList)
-    plt.setp(lines,c='red',linestyle='--') 
+#     #plot 2:
+#     plt.subplot(1, 3, 2)
+#     plt.title("shear (tf)")
+#     plt.ylabel("depth (m)",fontsize=12)
+#     lines= plt.plot(shearList,coordzList)
+#     plt.setp(lines,c='red',linestyle='--') 
 
-    #plot 3:
-    plt.subplot(1, 3, 3)
-    plt.title("moment (tf-m)")
-    plt.ylabel("depth (m)",fontsize=12)
-    lines= plt.plot(momentList,coordzList)
-    plt.setp(lines,c='red',linestyle='--') 
+#     #plot 3:
+#     plt.subplot(1, 3, 3)
+#     plt.title("moment (tf-m)")
+#     plt.ylabel("depth (m)",fontsize=12)
+#     lines= plt.plot(momentList,coordzList)
+#     plt.setp(lines,c='red',linestyle='--') 
 
-    plt.subplots_adjust(left=0.125,
-                        bottom=0.1, 
-                        right=0.9, 
-                        top=0.9, 
-                        wspace=0.5, 
-                        hspace=0.35)
+#     plt.subplots_adjust(left=0.125,
+#                         bottom=0.1, 
+#                         right=0.9, 
+#                         top=0.9, 
+#                         wspace=0.5, 
+#                         hspace=0.35)
 
-
-    st.pyplot(plt)
+#     st.pyplot(plt)
 
 def printDataFrame(coordzList, displacementList, momentList, shearList):
 
@@ -115,88 +112,85 @@ def printDataFrame(coordzList, displacementList, momentList, shearList):
     st.write("最大剪力 =", round(df.Shear.abs().max(),3),'tf')
     st.write("最大變位 =", round(df.Displacement.abs().max(),2),'cm')
 
-
-st.markdown('### 樁頭拘束')
-coordzList=[]  # m
-momentList=[]  # tf-m
-shearList=[]   # tf
-displacementList=[] # cm
-for i in range(num):
-    coordz = i * PILEDIVIDE
-    
-    if coordz < intputData['Ht']:
-        coordz = (coordz - intputData['Ht'])
-
-        displacementList.append(1000*intputData['ForceH']/(12*Ep*Ip*beta**3)*(
-            +2*beta**3*coordz**3
-            -3*(1-beta*intputData['Ht'])*beta**3*coordz**2
-            -6*beta**2*intputData['Ht']*coordz
-            +3*(1+beta*intputData['Ht'])))
+col1, col2 = st.columns(2)
+with col1:
+    st.markdown('### 樁頭拘束')
+    coordzList=[]  # m
+    momentList=[]  # tf-m
+    shearList=[]   # tf
+    displacementList=[] # cm
+    for i in range(num):
+        coordz = i * PILEDIVIDE
         
-        momentList.append(intputData['ForceH']/100/(2*beta)*(-2*beta*coordz+(1-beta*intputData['Ht'])))
-        shearList.append(-intputData['ForceH'])
-                        
-    else:
-        coordz = (coordz - intputData['Ht'])
+        if coordz < intputData['Ht']:
+            coordz = (coordz - intputData['Ht'])
 
-        displacementList.append(1000*intputData['ForceH']/(4*Ep*Ip*beta**3)*
-                                math.exp(-beta*coordz)*(
-            (1+beta*intputData['Ht'])*math.cos(beta*coordz)+
-            (1-beta*intputData['Ht'])*math.sin(beta*coordz)))
+            displacementList.append(1000*intputData['ForceH']/(12*Ep*Ip*beta**3)*(
+                +2*beta**3*coordz**3
+                -3*(1-beta*intputData['Ht'])*beta**3*coordz**2
+                -6*beta**2*intputData['Ht']*coordz
+                +3*(1+beta*intputData['Ht'])))
+            
+            momentList.append(intputData['ForceH']/100/(2*beta)*(-2*beta*coordz+(1-beta*intputData['Ht'])))
+            shearList.append(-intputData['ForceH'])
+                            
+        else:
+            coordz = (coordz - intputData['Ht'])
+
+            displacementList.append(1000*intputData['ForceH']/(4*Ep*Ip*beta**3)*
+                                    math.exp(-beta*coordz)*(
+                (1+beta*intputData['Ht'])*math.cos(beta*coordz)+
+                (1-beta*intputData['Ht'])*math.sin(beta*coordz)))
+            
+            momentList.append(intputData['ForceH']/100/(2*beta)*math.exp(-beta*coordz)*(
+                (1-beta*intputData['Ht'])*math.cos(beta*coordz)-
+                (1+beta*intputData['Ht'])*math.sin(beta*coordz)))
+            shearList.append(-intputData['ForceH']*math.exp(-beta*coordz)*(
+                math.cos(beta*coordz)-(beta*intputData['Ht'])*
+                math.sin(beta*coordz)))
+            
+        coordzList.append(-coordz/100)
+
+    printDataFrame(coordzList,displacementList,momentList,shearList)
+    # plotPile(coordzList,displacementList,shearList,momentList)
+
+with col2:
+    st.markdown('### 樁頭自由')
+    coordzList=[]  # m
+    momentList=[]  # tf-m
+    shearList=[]   # tf
+    displacementList=[] # cm
+    for i in range(num):
+        coordz = i * PILEDIVIDE
         
-        momentList.append(intputData['ForceH']/100/(2*beta)*math.exp(-beta*coordz)*(
-            (1-beta*intputData['Ht'])*math.cos(beta*coordz)-
-            (1+beta*intputData['Ht'])*math.sin(beta*coordz)))
-        shearList.append(-intputData['ForceH']*math.exp(-beta*coordz)*(
-            math.cos(beta*coordz)-(beta*intputData['Ht'])*
-            math.sin(beta*coordz)))
-        
-    coordzList.append(-coordz/100)
+        if coordz < intputData['Ht']:
+            coordz = (coordz - intputData['Ht'])
 
-printDataFrame(coordzList,displacementList,momentList,shearList)
-plotPile(coordzList,displacementList,shearList,momentList)
+            displacementList.append(1000*intputData['ForceH']/(6*Ep*Ip*beta**3)*(
+                +beta**3*coordz**3
+                +3*beta**3*intputData['Ht']*coordz**2
+                -3*beta*(1+2*beta*intputData['Ht'])*coordz
+                +3*(1+beta*intputData['Ht'])))
+            
+            momentList.append(-intputData['ForceH']/100*(coordz+intputData['Ht']))
+            shearList.append(-intputData['ForceH'])
+                            
+        else:
+            coordz = (coordz - intputData['Ht'])
 
+            displacementList.append(1000*intputData['ForceH']/(2*Ep*Ip*beta**3)*
+                                    math.exp(-beta*coordz)*(
+                (1+beta*intputData['Ht'])*math.cos(beta*coordz)-
+                (beta*intputData['Ht'])*math.sin(beta*coordz)))
+            
+            momentList.append(-intputData['ForceH']/100/(beta)*math.exp(-beta*coordz)*(
+                (beta*intputData['Ht'])*math.cos(beta*coordz)+
+                (1+beta*intputData['Ht'])*math.sin(beta*coordz)))
+            shearList.append(-intputData['ForceH']*math.exp(-beta*coordz)*(
+                math.cos(beta*coordz)-(1+2*beta*intputData['Ht'])*
+                math.sin(beta*coordz)))
+            
+        coordzList.append(-coordz/100)
 
-st.markdown('### 樁頭自由')
-coordzList=[]  # m
-momentList=[]  # tf-m
-shearList=[]   # tf
-displacementList=[] # cm
-for i in range(num):
-    coordz = i * PILEDIVIDE
-    
-    if coordz < intputData['Ht']:
-        coordz = (coordz - intputData['Ht'])
-
-        displacementList.append(1000*intputData['ForceH']/(6*Ep*Ip*beta**3)*(
-            +beta**3*coordz**3
-            +3*beta**3*intputData['Ht']*coordz**2
-            -3*beta*(1+2*beta*intputData['Ht'])*coordz
-            +3*(1+beta*intputData['Ht'])))
-        
-        momentList.append(-intputData['ForceH']/100*(coordz+intputData['Ht']))
-        shearList.append(-intputData['ForceH'])
-                        
-    else:
-        coordz = (coordz - intputData['Ht'])
-
-        displacementList.append(1000*intputData['ForceH']/(2*Ep*Ip*beta**3)*
-                                math.exp(-beta*coordz)*(
-            (1+beta*intputData['Ht'])*math.cos(beta*coordz)-
-            (beta*intputData['Ht'])*math.sin(beta*coordz)))
-        
-        momentList.append(-intputData['ForceH']/100/(beta)*math.exp(-beta*coordz)*(
-            (beta*intputData['Ht'])*math.cos(beta*coordz)+
-            (1+beta*intputData['Ht'])*math.sin(beta*coordz)))
-        shearList.append(-intputData['ForceH']*math.exp(-beta*coordz)*(
-            math.cos(beta*coordz)-(1+2*beta*intputData['Ht'])*
-            math.sin(beta*coordz)))
-        
-    coordzList.append(-coordz/100)
-
-printDataFrame(coordzList,displacementList,momentList,shearList)
-plotPile(coordzList,displacementList,shearList,momentList)
-
-
-
-
+    printDataFrame(coordzList,displacementList,momentList,shearList)
+    # plotPile(coordzList,displacementList,shearList,momentList)

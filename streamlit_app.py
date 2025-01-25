@@ -16,11 +16,8 @@ intputData = {
 
 intputData['PileD'] = st.sidebar.number_input('樁徑(cm)',value=100, min_value =0)
 intputData['PileL'] = st.sidebar.number_input('樁長(cm)',value=2000, min_value =0)
-
 intputData['Ht'] = st.sidebar.number_input('樁頂距地面高(cm)',value=0, min_value =0)
-
 intputData['Fc']= st.sidebar.number_input("混凝土強度(kgf/cm2)",value=245)
-
 intputData['kh'] = st.sidebar.number_input('水平地盤反力係數(kgf/cm3)',value=0.5,format="%0.3f")
 intputData['ForceP'] = st.sidebar.number_input('樁頂垂直力(tf)')
 intputData['ForceH'] = st.sidebar.number_input('樁頂水平力(tf)',value=30.00)

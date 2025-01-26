@@ -16,12 +16,12 @@ intputData = {
 intputData['PileD'] = st.sidebar.number_input('樁徑(cm)',value=100, min_value =0)
 intputData['PileL'] = st.sidebar.number_input('樁長(cm)',value=2000, min_value =0)
 intputData['Ht'] = st.sidebar.number_input('樁頂距地面高(cm)',value=0, min_value =0)
-intputData['Fc']= st.sidebar.number_input("混凝土強度(kgf/cm2)",value=245)
-intputData['kh'] = st.sidebar.number_input('水平地盤反力係數(kgf/cm3)',value=0.5,format="%0.3f")
+intputData['Fc']= st.sidebar.number_input("混凝土強度(kgf/cm$^2$)",value=245)
+intputData['kh'] = st.sidebar.number_input('水平地盤反力係數(kgf/cm$^3$)',value=0.5,format="%0.3f")
 intputData['ForceP'] = st.sidebar.number_input('樁頂垂直力(tf)')
 intputData['ForceH'] = st.sidebar.number_input('樁頂水平力(tf)',value=30.00)
 
-st.markdown('## 基樁側向分析')
+st.markdown('## 基樁側向分析 X$^2$')
 st.divider()
 
 col1, col2 = st.columns(2)
@@ -30,8 +30,8 @@ with col1:
     st.write("樁徑 D =",intputData["PileD"],"cm",)
     st.write("樁長 L =",intputData["PileL"],"cm",)
     st.write("樁頂距地面高 Ht =",intputData["Ht"],"cm",)
-    st.write("混凝土強度 fc' =",intputData["Fc"],"kgf/cm2")
-    st.write("水平地盤反力係數",intputData['kh'],"kgf/cm3")
+    st.write("混凝土強度 fc' =",intputData["Fc"],"kgf/cm$^2$")
+    st.write("水平地盤反力係數",intputData['kh'],"kgf/cm$^3$")
 
 with col2:
     st.markdown('### 外力資料')
@@ -45,9 +45,9 @@ Ep = 15100 * intputData['Fc']**0.5
 beta = ((intputData['kh']*intputData['PileD'])/(4*Ep*Ip))**0.25
 
 st.markdown('## 輸出資料')
-st.write("斷面積 =" ,round(Ap) ,"cm2")
-st.write("慣性矩 =" ,round(Ip) ,"cm4")
-st.write("彈性係數 =" ,round(Ep),"kgf/cm2")
+st.write("斷面積 =" ,round(Ap) ,"cm$^2$")
+st.write("慣性矩 =" ,round(Ip) ,"cm$^4$")
+st.write("彈性係數 =" ,round(Ep),"kgf/cm$^2$")
 st.write("β =" ,round(beta*100,3) ,"1/m")
 st.write("βL =" ,round(beta*intputData["PileL"],3) ,"m")
 

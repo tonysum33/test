@@ -3,7 +3,6 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 
-
 st.title("建築物耐震")
 
 # 一般工址或近斷層工址之工址水平譜加速度係數 S_aD, S_aM

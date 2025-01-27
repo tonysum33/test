@@ -60,7 +60,6 @@ def Sa_Fu_m(S_a, Fu):
     else:
         return 0.7 *tmp
 
-
 respond_info = {
     "siteType":None,
     "var_i":None,
@@ -71,7 +70,6 @@ respond_info = {
     "T":None,
     "alfa_y":None,
 }
-
 
 respond_info["siteType"] = st.sidebar.selectbox(
     "地盤分類",

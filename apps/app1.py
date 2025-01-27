@@ -336,17 +336,17 @@ V_S = [scale * Sa(i, TDs_0, S_DsS, S_Ds1) for i in t]
 
 
 data = pd.DataFrame({
-    'x': t,
-    'y1': V_D,
-    'y2': V_M,
-    'y3': V_S
+    '週期': t,
+    '設計地震': V_D,
+    '最大地震': V_M,
+    '中度地震': V_S
 })
 fig = go.Figure()
 
 # Add traces for each line
-fig.add_trace(go.Scatter(x=data['x'], y=data['y1'], mode='lines', name='設計地震'))
-fig.add_trace(go.Scatter(x=data['x'], y=data['y2'], mode='lines', name='最大地震'))
-fig.add_trace(go.Scatter(x=data['x'], y=data['y3'], mode='lines', name='中度地震'))
+fig.add_trace(go.Scatter(x=data['週期'], y=data['設計地震'], mode='lines', name='設計地震'))
+fig.add_trace(go.Scatter(x=data['週期'], y=data['最大地震'], mode='lines', name='最大地震'))
+fig.add_trace(go.Scatter(x=data['週期'], y=data['中度地震'], mode='lines', name='中度地震'))
 
 # Update layout to add margins and grid lines
 fig.update_layout(

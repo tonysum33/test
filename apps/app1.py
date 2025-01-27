@@ -368,5 +368,6 @@ fig.update_layout(
     height=400  # Adjust the height of the chart
 )
 
+
 st.plotly_chart(fig)
 st.write(data)

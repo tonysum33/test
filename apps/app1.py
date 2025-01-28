@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 
 st.set_page_config(layout="wide")
 
+
 st.title("建築物耐震")
 
 # 一般工址或近斷層工址之工址水平譜加速度係數 S_aD, S_aM
@@ -81,52 +82,52 @@ respond_info["siteType"] = st.sidebar.selectbox(
     )
 
 respond_info["var_i"] = st.sidebar.selectbox(
-    "用途係數 I",
+    "I 用途係數",
     (1.00, 1.25, 1.50),
     index=1,
     placeholder="Select contact method...",
     )
 
 respond_info["SD_S"]  = st.sidebar.number_input(
-    "S$^D_S$ 短周期設計水平譜加速度數係數",
+    "SD_S 短周期設計水平譜加速度數係數",
     value= 1.00,
     min_value=0.0,
     max_value=1.0
     )
 
 respond_info["SD_1"]  = st.sidebar.number_input(
-    "S$^D_1$ 一秒週期設計水平譜加速度數係數",
+    "SD_1 一秒週期設計水平譜加速度數係數",
     value= 0.70,
     min_value=0.0,
     )
 
 respond_info["SM_S"]  = st.sidebar.number_input(
-    "S$^M_S$ 短週期最大考量水平譜加速度數係數",
+    "SM_S 短週期最大考量水平譜加速度數係數",
     value= 1.00,
     min_value=0.0,
     )
 
 
 respond_info["SM_1"]  = st.sidebar.number_input(
-    "S$^M_1$ 一秒週期最大考量水平譜加速度數係數",
+    "SM_1 一秒週期最大考量水平譜加速度數係數",
     value= 0.55,
     min_value=0.0,
     )
 
 respond_info["T"]  = st.sidebar.number_input(
-    "所考慮方向之基本震動週期 T(sec)",
+    "T 基本振動週期 (sec)",
     value= 0.6,
     min_value=0.0,
     )
 
 respond_info["R"]  = st.sidebar.number_input(
-    "所考慮方向之結構系統韌性容量 R",
+    "R 結構系統韌性容量",
     value= 4.0,
     min_value=0.0,
     )
 
 respond_info["alfa_y"]  = st.sidebar.number_input(
-    "起始降伏地震力放大倍數 α$_y$",
+    "αy 起始降伏地震力放大倍數",
     value= 1.0,
     min_value=1.0,
     )
@@ -182,36 +183,36 @@ col1,col2,col3 = st.columns(3)
 
 with col1:
     st.write("#### 設計地震")  
-    st.write("S$^D_S$ =",round(respond_info["SD_S"],3))
-    st.write("S$^D_1$ =",round(respond_info["SD_1"],3))
-    st.write("F$_a$ =",Fa(siteType, SD_S))
-    st.write("F$_v$ =",Fa(siteType, SD_1))
-    st.write('S$_{DS}$ =',round(S_DS,3)) 
-    st.write('S$_{D1}$ =',round(S_D1,3)) 
-    st.write('T$^D_0$ =',round(TD_0,3))
+    st.write("S<sub>S</sub><sup>D</sup> =",round(SD_S,3), unsafe_allow_html=True)
+    st.write("S<sub>1</sub><sup>D</sup> =",round(SD_1,3), unsafe_allow_html=True)
+    st.write("F<sub>a</sub> =",Fa(siteType, SD_S), unsafe_allow_html=True)
+    st.write("F<sub>v</sub> =",Fa(siteType, SD_1), unsafe_allow_html=True)
+    st.write('S<sub>DS</sub> =',round(S_DS,3), unsafe_allow_html=True) 
+    st.write('S<sub>D1</sub> =',round(S_D1,3), unsafe_allow_html=True)  
+    st.write("T<sub>0</sub><sup>D</sup> =",round(TD_0,3), unsafe_allow_html=True)
 
 with col2:
     st.write("#### 中度地震") 
-    st.write("S$^{D}_S$ =",round(SDs_S,3))
-    st.write("S$^{D}_1$ =",round(SDs_1,3))
-    st.write("F$_a$ =",Fa(siteType, SDs_S))
-    st.write("F$_v$ =",Fv(siteType, SDs_1))
-    st.write('S$_{DS}$ =',round(S_DsS,3)) 
-    st.write('S$_{D1}$ =',round(S_Ds1,3)) 
-    st.write('T$^D_0$ =',round(TDs_0,3))
+    st.write("S<sub>S</sub><sup>D</sup> =",round(SDs_S,3), unsafe_allow_html=True)
+    st.write("S<sub>1</sub><sup>D</sup> =",round(SDs_1,3), unsafe_allow_html=True)
+    st.write("F<sub>a</sub> =",Fa(siteType, SDs_S), unsafe_allow_html=True)
+    st.write("F<sub>v</sub> =",Fv(siteType, SDs_1), unsafe_allow_html=True)
+    st.write('S<sub>DS</sub> =',round(S_DsS,3), unsafe_allow_html=True) 
+    st.write('S<sub>D1</sub> =',round(S_Ds1,3), unsafe_allow_html=True) 
+    st.write("T<sub>0</sub><sup>D</sup> =",round(TDs_0,3), unsafe_allow_html=True) 
 
 with col3:
     st.write("#### 最大地震") 
-    st.write("S$^M_S$ =",round(respond_info["SM_S"],3))
-    st.write("S$^M_1$ =",round(respond_info["SM_1"],3))
-    st.write("F$_a$ =",Fa(siteType, SM_S))
-    st.write("F$_v$ =",Fa(siteType, SM_1))
-    st.write('S$_{MS}$ =',round(S_MS,3)) 
-    st.write('S$_{M1}$ =',round(S_M1,3)) 
-    st.write('T$^M_0$ =',round(TM_0,3))
+    st.write("S<sub>S</sub><sup>M</sup> =",round(SM_S,3), unsafe_allow_html=True)
+    st.write("S<sub>1</sub><sup>M</sup> =",round(SM_1,3), unsafe_allow_html=True)
+    st.write("F<sub>a</sub> =",Fa(siteType, SM_S), unsafe_allow_html=True)
+    st.write("F<sub>v</sub> =",Fa(siteType, SM_1), unsafe_allow_html=True)
+    st.write('S<sub>MS</sub> =',round(S_MS,3), unsafe_allow_html=True) 
+    st.write('S<sub>M1</sub> =',round(S_M1,3), unsafe_allow_html=True) 
+    st.write("T<sub>0</sub><sup>M</sup> =",round(TM_0,3), unsafe_allow_html=True) 
 
 st.divider()
-st.write("起始降伏地震力放大倍數 α$_y$ =",alfa_y)
+st.write("起始降伏地震力放大倍數 αy =",alfa_y)
 st.write("基本震動週期 T =",T)
 st.write("結構系統韌性容量 R =",R)
 st.write("結構系統容許韌性容量 Ra =",Ra)
@@ -219,26 +220,31 @@ st.write("結構系統容許韌性容量 Ra =",Ra)
 col1,col2,col3 = st.columns(3)
 with col1:
     st.write("#### 設計地震")  
-    st.write("S$_{aD}$ =",round(S_aD,3))
-    st.write("F$_{uD}$ =",round(F_uD,3))
-    st.write('$V_{d}$ =',round(V_D,3),"tf")
+    st.write("S<sub>aD</sub> =",round(S_aD,3), unsafe_allow_html=True) 
+    st.write("F<sub>uD</sub> =",round(F_uD,3), unsafe_allow_html=True) 
+    st.write("V<sub>D</sub> =",round(V_D,3),"tf", unsafe_allow_html=True) 
 
 with col2:
     st.write("#### 中度地震")  
-    st.write("S$_{aD}$ =",round(S_aDs,3))
-    st.write("F$_{uD}$ =",round(F_uDs,3))
-    st.write('$V_{s}$ =',round(V_S,3),"tf")
+    st.write("S<sub>aS</sub> =",round(S_aDs,3), unsafe_allow_html=True) 
+    st.write("F<sub>uS</sub> =",round(F_uDs,3), unsafe_allow_html=True) 
+    st.write("V<sub>S</sub> =",round(V_S,3),"tf", unsafe_allow_html=True) 
     
 with col3:
     st.write("#### 最大地震")  
-    st.write("S$_{aM}$ =",round(S_aM,3))
-    st.write("F$_{uM}$ =",round(F_uM,3))
-    st.write('$V_{m}$ =',round(V_M,3),"tf")
+    st.write("S<sub>aM</sub> =",round(S_aM,3), unsafe_allow_html=True) 
+    st.write("F<sub>uM</sub> =",round(F_uM,3), unsafe_allow_html=True) 
+    st.write("V<sub>M</sub> =",round(V_M,3),"tf", unsafe_allow_html=True) 
 
-st.write('$V_{design}$ =',round(V_design,3),"tf")
+st.write('V<sub>design</sub> =',round(V_design,3),"tf", unsafe_allow_html=True) 
 st.divider()
 
-t = np.arange(0.0 , 5.0, 0.01)
+
+t_ranges = st.slider("週期範圍", 0.0, 5.0, (0.0, 3.0))
+t_step = st.number_input("週期間距",min_value=0.01,max_value=0.5,step=0.01,value=0.05)
+
+
+t = np.arange(t_ranges[0] , t_ranges[1], t_step)
 SaD  = [Sa(i, TD_0, S_DS, S_D1) for i in t]
 SaM  = [Sa(i, TM_0, S_MS, S_M1) for i in t]
 SaDs = [Sa(i, TDs_0, S_DsS, S_Ds1) for i in t]
@@ -267,7 +273,7 @@ fig.update_layout(
     yaxis_title='Sa',
     margin=dict(l=50, r=50, t=50, b=50),  # Adjust the margins as needed
     xaxis=dict(
-        range=[-0.1, 5.1],
+        range=[t_ranges[0]-0.1,t_ranges[1]+0.1],
         showgrid=True,  # Show grid lines for the x-axis
         gridwidth=1,
         gridcolor='LightGray'
@@ -305,7 +311,7 @@ fig.update_layout(
     yaxis_title='Fu',
     margin=dict(l=50, r=50, t=50, b=50),  # Adjust the margins as needed
     xaxis=dict(
-        range=[-0.1, 5.1],
+        range=[t_ranges[0]-0.1,t_ranges[1]+0.1],
         showgrid=True,  # Show grid lines for the x-axis
         gridwidth=1,
         gridcolor='LightGray'
@@ -355,7 +361,7 @@ fig.update_layout(
     yaxis_title='V/W',
     margin=dict(l=50, r=50, t=50, b=50),  # Adjust the margins as needed
     xaxis=dict(
-        range=[-0.1, 5.1],
+        range=[t_ranges[0]-0.1,t_ranges[1]+0.1],
         showgrid=True,  # Show grid lines for the x-axis
         gridwidth=1,
         gridcolor='LightGray'

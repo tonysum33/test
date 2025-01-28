@@ -1,10 +1,14 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
+import os
 import plotly.graph_objects as go
 
-st.set_page_config(layout="wide")
+# st.set_page_config(layout="wide")
 
+script_dir = os.path.dirname(__file__)
+csv_file = os.path.join(script_dir,"data.csv")
+df = pd.read_csv(csv_file)
 
 st.title("建築物耐震")
 
@@ -66,13 +70,15 @@ def Sa_Fu_m(S_a, Fu):
 respond_info = {
     "siteType":None,
     "var_i":None,
-    "SD_S":None,
-    "SD_1":None,
-    "SM_S":None,
-    "SM_1":None,
     "T":None,
     "alfa_y":None,
 }
+
+unique_categories = df['縣市'].unique()
+selected_category = st.sidebar.selectbox("選擇縣市",unique_categories)
+filtered_subcategories = df[df['縣市']==selected_category]['鄉鎮市區'].unique()
+selected_subcategory = st.sidebar.selectbox("選擇鄉鎮市區",filtered_subcategories)
+filtered_data = df[(df['縣市']==selected_category)&(df['鄉鎮市區']==selected_subcategory)]
 
 respond_info["siteType"] = st.sidebar.selectbox(
     "地盤分類",
@@ -86,32 +92,6 @@ respond_info["var_i"] = st.sidebar.selectbox(
     (1.00, 1.25, 1.50),
     index=1,
     placeholder="Select contact method...",
-    )
-
-respond_info["SD_S"]  = st.sidebar.number_input(
-    "SD_S 短周期設計水平譜加速度數係數",
-    value= 1.00,
-    min_value=0.0,
-    max_value=1.0
-    )
-
-respond_info["SD_1"]  = st.sidebar.number_input(
-    "SD_1 一秒週期設計水平譜加速度數係數",
-    value= 0.70,
-    min_value=0.0,
-    )
-
-respond_info["SM_S"]  = st.sidebar.number_input(
-    "SM_S 短週期最大考量水平譜加速度數係數",
-    value= 1.00,
-    min_value=0.0,
-    )
-
-
-respond_info["SM_1"]  = st.sidebar.number_input(
-    "SM_1 一秒週期最大考量水平譜加速度數係數",
-    value= 0.55,
-    min_value=0.0,
     )
 
 respond_info["T"]  = st.sidebar.number_input(
@@ -135,10 +115,10 @@ respond_info["alfa_y"]  = st.sidebar.number_input(
 siteType = respond_info["siteType"]
 I = respond_info["var_i"]
 
-SD_S = respond_info["SD_S"]
-SD_1 = respond_info["SD_1"]
-SM_S = respond_info["SM_S"]
-SM_1 = respond_info["SM_1"]
+SD_S = float(filtered_data["SD_S"].values)
+SD_1 = float(filtered_data["SD_1"].values)
+SM_S = float(filtered_data["SM_S"].values)
+SM_1 = float(filtered_data["SM_1"].values)
 SDs_S = 0.70 #假設
 SDs_1 = 0.40 #假設
 

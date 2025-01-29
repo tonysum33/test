@@ -165,7 +165,7 @@ col1,col2,col3,col4 = st.columns([2.5,1,1,1])
 with col1:
     st.write("####  ")
     st.write("震區短週期水平譜加速度係數")
-    st.write("1秒週期水平譜加速度係數")
+    st.write("震區一秒週期水平譜加速度係數")
     st.write("反應譜等加速度段之工址放大係數")
     st.write("反應譜等速度段之工址放大係數")
     st.write("工址短週期譜加速度係數")

@@ -155,13 +155,21 @@ V_M = I/1.4/alfa_y * Sa_Fu_m(S_aM, F_uM)
 V_design = max(V_D, V_S,V_M)
 
 st.divider()
-st.write("地盤種類 :",respond_info["siteType"])
+st.write("工址位於 :",str(filtered_data["縣市"].values),str(filtered_data["鄉鎮市區"].values))
+st.write("地盤種類 :",siteType)
 st.write("用途係數 I =",respond_info["var_i"])
 
 
-col1,col2,col3 = st.columns(3)
+col1,col2,col3,col4 = st.columns()
 
 with col1:
+    st.write("####  ")
+    st.write("震區短週期水平譜加速度係數")
+    st.write("1秒週期水平譜加速度係數")
+    st.write("反應譜等加速度段之工址放大係數")
+    st.write("反應譜等速度段之工址放大係數")
+
+with col2:
     st.write("#### 設計地震")  
     st.write("S<sub>S</sub><sup>D</sup> =",round(SD_S,3), unsafe_allow_html=True)
     st.write("S<sub>1</sub><sup>D</sup> =",round(SD_1,3), unsafe_allow_html=True)
@@ -171,7 +179,7 @@ with col1:
     st.write('S<sub>D1</sub> =',round(S_D1,3), unsafe_allow_html=True)  
     st.write("T<sub>0</sub><sup>D</sup> =",round(TD_0,3), unsafe_allow_html=True)
 
-with col2:
+with col3:
     st.write("#### 中度地震") 
     st.write("S<sub>S</sub><sup>D</sup> =",round(SDs_S,3), unsafe_allow_html=True)
     st.write("S<sub>1</sub><sup>D</sup> =",round(SDs_1,3), unsafe_allow_html=True)
@@ -181,7 +189,7 @@ with col2:
     st.write('S<sub>D1</sub> =',round(S_Ds1,3), unsafe_allow_html=True) 
     st.write("T<sub>0</sub><sup>D</sup> =",round(TDs_0,3), unsafe_allow_html=True) 
 
-with col3:
+with col4:
     st.write("#### 最大地震") 
     st.write("S<sub>S</sub><sup>M</sup> =",round(SM_S,3), unsafe_allow_html=True)
     st.write("S<sub>1</sub><sup>M</sup> =",round(SM_1,3), unsafe_allow_html=True)

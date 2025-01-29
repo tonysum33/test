@@ -160,7 +160,7 @@ st.write("地盤種類 :",siteType)
 st.write("用途係數 I =",respond_info["var_i"])
 
 
-col1,col2,col3,col4 = st.columns()
+col1,col2,col3,col4 = st.columns([2.5,1,1,1])
 
 with col1:
     st.write("####  ")
@@ -168,9 +168,12 @@ with col1:
     st.write("1秒週期水平譜加速度係數")
     st.write("反應譜等加速度段之工址放大係數")
     st.write("反應譜等速度段之工址放大係數")
+    st.write("工址短週期譜加速度係數")
+    st.write("工址一秒週期譜加速度係數")
+    st.write("工址反應譜短週期與中長週期之分界")
 
 with col2:
-    st.write("#### 設計地震")  
+    st.write("#### <U>設計</U>", unsafe_allow_html=True)   
     st.write("S<sub>S</sub><sup>D</sup> =",round(SD_S,3), unsafe_allow_html=True)
     st.write("S<sub>1</sub><sup>D</sup> =",round(SD_1,3), unsafe_allow_html=True)
     st.write("F<sub>a</sub> =",Fa(siteType, SD_S), unsafe_allow_html=True)
@@ -180,7 +183,7 @@ with col2:
     st.write("T<sub>0</sub><sup>D</sup> =",round(TD_0,3), unsafe_allow_html=True)
 
 with col3:
-    st.write("#### 中度地震") 
+    st.write("#### <U>中度</U>", unsafe_allow_html=True) 
     st.write("S<sub>S</sub><sup>D</sup> =",round(SDs_S,3), unsafe_allow_html=True)
     st.write("S<sub>1</sub><sup>D</sup> =",round(SDs_1,3), unsafe_allow_html=True)
     st.write("F<sub>a</sub> =",Fa(siteType, SDs_S), unsafe_allow_html=True)
@@ -190,7 +193,7 @@ with col3:
     st.write("T<sub>0</sub><sup>D</sup> =",round(TDs_0,3), unsafe_allow_html=True) 
 
 with col4:
-    st.write("#### 最大地震") 
+    st.write("#### <U>最大</U>", unsafe_allow_html=True) 
     st.write("S<sub>S</sub><sup>M</sup> =",round(SM_S,3), unsafe_allow_html=True)
     st.write("S<sub>1</sub><sup>M</sup> =",round(SM_1,3), unsafe_allow_html=True)
     st.write("F<sub>a</sub> =",Fa(siteType, SM_S), unsafe_allow_html=True)
@@ -199,32 +202,42 @@ with col4:
     st.write('S<sub>M1</sub> =',round(S_M1,3), unsafe_allow_html=True) 
     st.write("T<sub>0</sub><sup>M</sup> =",round(TM_0,3), unsafe_allow_html=True) 
 
+
+
 st.divider()
 st.write("起始降伏地震力放大倍數 αy =",alfa_y)
 st.write("基本震動週期 T =",T)
 st.write("結構系統韌性容量 R =",R)
 st.write("結構系統容許韌性容量 Ra =",Ra)
+st.write("正規化設計基準地震力係數 V<sub>D</sub> / W = (I/1.4αy)(SaD/Fu)m ", unsafe_allow_html=True)
+         
 
-col1,col2,col3 = st.columns(3)
+col1,col2,col3,col4 = st.columns([2.5,1,1,1])
 with col1:
-    st.write("#### 設計地震")  
-    st.write("S<sub>aD</sub> =",round(S_aD,3), unsafe_allow_html=True) 
-    st.write("F<sub>uD</sub> =",round(F_uD,3), unsafe_allow_html=True) 
-    st.write("V<sub>D</sub> =",round(V_D,3),"tf", unsafe_allow_html=True) 
+    st.write("#### ")
+    st.write("工址譜加速度係數")
+    st.write("地震力折減係數")
+    st.write("地震力係數")
 
 with col2:
-    st.write("#### 中度地震")  
-    st.write("S<sub>aS</sub> =",round(S_aDs,3), unsafe_allow_html=True) 
-    st.write("F<sub>uS</sub> =",round(F_uDs,3), unsafe_allow_html=True) 
-    st.write("V<sub>S</sub> =",round(V_S,3),"tf", unsafe_allow_html=True) 
-    
-with col3:
-    st.write("#### 最大地震")  
-    st.write("S<sub>aM</sub> =",round(S_aM,3), unsafe_allow_html=True) 
-    st.write("F<sub>uM</sub> =",round(F_uM,3), unsafe_allow_html=True) 
-    st.write("V<sub>M</sub> =",round(V_M,3),"tf", unsafe_allow_html=True) 
+    st.write("#### <U>設計</U>", unsafe_allow_html=True)   
+    st.write("SaD =",round(S_aD,3)) 
+    st.write("FuD =",round(F_uD,3)) 
+    st.write("V<sub>D</sub> / W =",round(V_D,3), unsafe_allow_html=True) 
 
-st.write('V<sub>design</sub> =',round(V_design,3),"tf", unsafe_allow_html=True) 
+with col3:
+    st.write("#### <U>中度</U>", unsafe_allow_html=True) 
+    st.write("SaS =",round(S_aDs,3)) 
+    st.write("FuS =",round(F_uDs,3)) 
+    st.write("V<sub>S</sub> / W =",round(V_S,3), unsafe_allow_html=True) 
+    
+with col4:
+    st.write("#### <U>最大</U>", unsafe_allow_html=True)   
+    st.write("SaM =",round(S_aM,3))
+    st.write("FuM =",round(F_uM,3))
+    st.write("V<sub>M</sub> / W =",round(V_M,3), unsafe_allow_html=True) 
+
+st.write('V<sub>design</sub> / W =',round(V_design,3), unsafe_allow_html=True) 
 st.divider()
 
 

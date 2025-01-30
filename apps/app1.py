@@ -178,7 +178,7 @@ with col2:
     st.write("S<sub>S</sub><sup>D</sup> =",round(SD_S,3), unsafe_allow_html=True)
     st.write("S<sub>1</sub><sup>D</sup> =",round(SD_1,3), unsafe_allow_html=True)
     st.write("F<sub>a</sub> =",Fa(siteType, SD_S), unsafe_allow_html=True)
-    st.write("F<sub>v</sub> =",Fa(siteType, SD_1), unsafe_allow_html=True)
+    st.write("F<sub>v</sub> =",Fv(siteType, SD_1), unsafe_allow_html=True)
     st.write('S<sub>DS</sub> =',round(S_DS,3), unsafe_allow_html=True) 
     st.write('S<sub>D1</sub> =',round(S_D1,3), unsafe_allow_html=True)  
     st.write("T<sub>0</sub><sup>D</sup> =",round(TD_0,3), unsafe_allow_html=True)
@@ -198,7 +198,7 @@ with col4:
     st.write("S<sub>S</sub><sup>M</sup> =",round(SM_S,3), unsafe_allow_html=True)
     st.write("S<sub>1</sub><sup>M</sup> =",round(SM_1,3), unsafe_allow_html=True)
     st.write("F<sub>a</sub> =",Fa(siteType, SM_S), unsafe_allow_html=True)
-    st.write("F<sub>v</sub> =",Fa(siteType, SM_1), unsafe_allow_html=True)
+    st.write("F<sub>v</sub> =",Fv(siteType, SM_1), unsafe_allow_html=True)
     st.write('S<sub>MS</sub> =',round(S_MS,3), unsafe_allow_html=True) 
     st.write('S<sub>M1</sub> =',round(S_M1,3), unsafe_allow_html=True) 
     st.write("T<sub>0</sub><sup>M</sup> =",round(TM_0,3), unsafe_allow_html=True) 
@@ -213,32 +213,31 @@ st.write("結構系統容許韌性容量 Ra =",Ra)
 st.write("正規化設計基準地震力係數 V<sub>D</sub> / W = (I/1.4αy)(SaD/Fu)m ", unsafe_allow_html=True)
          
 
-col1,col2,col3,col4 = st.columns([2.5,1,1,1])
-with col1:
-    st.write("#### ")
-    st.write("工址譜加速度係數")
-    st.write("地震力折減係數")
-    st.write("地震力係數")
+col1,col2,col3 = st.columns([1,1,1])
 
-with col2:
-    st.write("#### <U>設計</U>", unsafe_allow_html=True)   
+
+with col1:
+    st.write("#### <U>設計地震</U>", unsafe_allow_html=True)   
     st.write("SaD =",round(S_aD,3)) 
     st.write("FuD =",round(F_uD,3)) 
+    st.write("SaD/FuD =",round(S_aD/F_uD,3)) 
     st.write("V<sub>D</sub> / W =",round(V_D,3), unsafe_allow_html=True) 
 
-with col3:
-    st.write("#### <U>中度</U>", unsafe_allow_html=True) 
+with col2:
+    st.write("#### <U>中度地震</U>", unsafe_allow_html=True) 
     st.write("SaS =",round(S_aDs,3)) 
     st.write("FuS =",round(F_uDs,3)) 
+    st.write("SaS/FuS =",round(S_aDs/F_uDs,3))
     st.write("V<sub>S</sub> / W =",round(V_S,3), unsafe_allow_html=True) 
     
-with col4:
-    st.write("#### <U>最大</U>", unsafe_allow_html=True)   
+with col3:
+    st.write("#### <U>最大地震</U>", unsafe_allow_html=True)   
     st.write("SaM =",round(S_aM,3))
     st.write("FuM =",round(F_uM,3))
+    st.write("SaM/FuM =",round(S_aM/F_uM,3)) 
     st.write("V<sub>M</sub> / W =",round(V_M,3), unsafe_allow_html=True) 
 
-st.write('V<sub>design</sub> / W = MIN[V<sub>D</sub>, V<sub>S</sub>, V<sub>M</sub>] / W =',round(V_design,3), unsafe_allow_html=True) 
+st.write('V<sub>design</sub> / W = Max[V<sub>D</sub>, V<sub>S</sub>, V<sub>M</sub>] / W =',round(V_design,3), unsafe_allow_html=True) 
 st.divider()
 
 

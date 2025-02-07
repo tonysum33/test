@@ -377,4 +377,4 @@ fig.update_layout(
 
 
 st.plotly_chart(fig)
-st.write(data)
+st.write(data.set_index("週期"))

@@ -88,7 +88,7 @@ st.write("鋼筋數量 =",bar_number)
 
 # 顯示斷面屬性
 st.header("Moment Interaction Diagram")
-fig, ax = plt.subplots(figsize=(8,6))
+fig, ax = plt.subplots()
 mi_res = concrete_section.moment_interaction_diagram(progress_bar=False)
 mi_res.plot_diagram(ax=ax,fmt="-r")
 ax.set_ylabel('Axial Force (N)')

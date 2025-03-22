@@ -65,6 +65,7 @@ geometry = concrete_rectangular_section(
     area_bot=bar_area,
     n_bot=4,
     c_bot=cover,
+    n_circle=8,
     conc_mat=concrete,
     steel_mat=steel,
 )
@@ -84,7 +85,7 @@ st.header("Moment Interaction Diagram")
 
 fig, ax = plt.subplots(figsize=(8,6))
 mi_res = concrete_section.moment_interaction_diagram(progress_bar=False)
-mi_res.plot_diagram(ax=ax,fmt="-")
+mi_res.plot_diagram(ax=ax,fmt="-r")
 ax.set_ylabel('Axial Force (N)')
 ax.set_xlabel('Bending Moment (N-m)')
 

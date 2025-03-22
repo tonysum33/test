@@ -50,7 +50,7 @@ steel = SteelBar(
         elastic_modulus=200e3,
         fracture_strain=0.05,
     ),
-    colour="grey",
+    colour="red",
 )
 
 # 創建矩形斷面
@@ -69,27 +69,28 @@ geometry = concrete_rectangular_section(
     conc_mat=concrete,
     steel_mat=steel,
 )
-
-# 創建混凝土斷面
 concrete_section = ConcreteSection(geometry)
 
-# 繪製斷面圖
 
-st.header("Geometry and Concrete Section")
-fig, ax = plt.subplots(figsize=(5, 8))
-concrete_section.plot_section(ax=ax)
+# 創建混凝土斷面
+st.header("ConcreteSection")
+fig, ax = plt.subplots()
+concrete_section.plot_section(ax=ax,)
+ax.set_xlabel("Width (mm)")
+ax.set_ylabel("Height (mm)")
+ax.set_aspect("equal")
 st.pyplot(fig)
+
+
 
 # 顯示斷面屬性
 st.header("Moment Interaction Diagram")
-
 fig, ax = plt.subplots(figsize=(8,6))
 mi_res = concrete_section.moment_interaction_diagram(progress_bar=False)
 mi_res.plot_diagram(ax=ax,fmt="-r")
 ax.set_ylabel('Axial Force (N)')
 ax.set_xlabel('Bending Moment (N-m)')
-
-
+ax.grid(True, linestyle="--", alpha=0.6)
 st.pyplot(fig)
 
 

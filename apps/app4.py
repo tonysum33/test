@@ -26,7 +26,7 @@ bar_diameter = st.sidebar.number_input("鋼筋直徑 (mm)", value=20)
 bar_area = 3.14159 * (bar_diameter / 2) ** 2
 cover = st.sidebar.number_input("保護層厚度 (mm)", value=30)
 
-# 創建混凝土和鋼筋材料
+# 創建混凝土材料
 concrete = Concrete(
     name="Concrete",
     density=2.4e-6,
@@ -40,6 +40,8 @@ concrete = Concrete(
     colour="lightgrey",
     flexural_tensile_strength=3.4,
 )
+
+# 創建鋼筋材料
 steel = SteelBar(
     name="Steel",
     density=7.85e-6,
@@ -71,10 +73,23 @@ geometry = concrete_rectangular_section(
 concrete_section = ConcreteSection(geometry)
 
 # 繪製斷面圖
-st.header("斷面圖")
-fig, ax = plt.subplots()
+
+st.header("Geometry and Concrete Section")
+fig, ax = plt.subplots(figsize=(5, 8))
 concrete_section.plot_section(ax=ax)
 st.pyplot(fig)
 
 # 顯示斷面屬性
-st.header("斷面屬性")
+st.header("Moment Interaction Diagram")
+
+fig, ax = plt.subplots(figsize=(8,6))
+mi_res = concrete_section.moment_interaction_diagram(progress_bar=False)
+mi_res.plot_diagram(ax=ax,fmt="-")
+ax.set_ylabel('Axial Force (N)')
+ax.set_xlabel('Bending Moment (N-m)')
+
+
+st.pyplot(fig)
+
+
+

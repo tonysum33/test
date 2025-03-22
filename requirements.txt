@@ -2,3 +2,5 @@ streamlit
 plotly
 concreteproperties
 sectionproperties
+openseespy
+opsvis

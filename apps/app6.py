@@ -19,6 +19,8 @@ st.title("混凝土斷面圖繪製")
 
 
 # 單位轉換
+
+# 1 MPa = 1 N/mm2
 def kgfcm2_to_MPa(kgfcm2):
     return kgfcm2 / 10.1972
 

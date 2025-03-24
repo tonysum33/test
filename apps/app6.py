@@ -36,8 +36,8 @@ bar_diameter = st.sidebar.number_input("鋼筋直徑 (mm)", value=16)
 bar_area = np.pi * (bar_diameter / 2) ** 2
 cover = st.sidebar.number_input("保護層厚度 (mm)", value=30)
 
-fc_Mpa = kgfcm2_to_MPa(fc_kgfcm2)
-fy_Mpa = kgfcm2_to_MPa(fy_kgfcm2)
+fc_MPa = kgfcm2_to_MPa(fc_kgfcm2)
+fy_MPa = kgfcm2_to_MPa(fy_kgfcm2)
 
 # 創建混凝土材料
 concrete = Concrete(
@@ -45,7 +45,7 @@ concrete = Concrete(
     density=2.4e-6,
     stress_strain_profile=ConcreteLinear(elastic_modulus=30.1e3),
         ultimate_stress_strain_profile=RectangularStressBlock(
-        compressive_strength=fc_Mpa,
+        compressive_strength=fc_MPa,
         alpha=0.802,
         gamma=0.89,
         ultimate_strain=0.003,
@@ -60,7 +60,7 @@ steel = SteelBar(
     name="Steel",
     density=7.85e-6,
     stress_strain_profile=SteelElasticPlastic(
-        yield_strength=fy_Mpa,
+        yield_strength=fy_MPa,
         elastic_modulus=200000,
         fracture_strain=0.05,
     ),

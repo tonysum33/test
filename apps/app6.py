@@ -19,10 +19,11 @@ st.title("混凝土斷面圖繪製")
 
 
 # 單位轉換
+GRAVITY = 9.80665 # m/sec2
 
 # 1 MPa = 1 N/mm2
 def kgfcm2_to_MPa(kgfcm2):
-    return kgfcm2 / 10.1972
+    return kgfcm2 * GRAVITY/100
 
 
 
@@ -42,7 +43,7 @@ fy_MPa = kgfcm2_to_MPa(fy_kgfcm2)
 # 創建混凝土材料
 concrete = Concrete(
     name="Concrete",
-    density=2.4e-6,
+    density=2.4e-6, # kg/mm3
     stress_strain_profile=ConcreteLinear(elastic_modulus=30.1e3),
         ultimate_stress_strain_profile=RectangularStressBlock(
         compressive_strength=fc_MPa,
@@ -51,17 +52,17 @@ concrete = Concrete(
         ultimate_strain=0.003,
     ),
     colour="lightgrey",
-    flexural_tensile_strength=3.4,
+    flexural_tensile_strength=3.4, # MPa
 )
 
 
 # 創建鋼筋材料
 steel = SteelBar(
     name="Steel",
-    density=7.85e-6,
+    density=7.85e-6, # kg/mm3
     stress_strain_profile=SteelElasticPlastic(
         yield_strength=fy_MPa,
-        elastic_modulus=200000,
+        elastic_modulus=200000, # MPa
         fracture_strain=0.05,
     ),
     colour="red",
